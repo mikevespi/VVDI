@@ -4,7 +4,7 @@ postgresql:
   global:
     postgresql:
       postgresqlDatabase: "usersdb"
-      postgresqlPassword: "Hello@123"
+      postgresqlPassword: "password"
       postgresqlUsername: "userservice-pguser"
       servicePort: "5432"
 
@@ -12,6 +12,24 @@ postgresql:
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# lakefs
+# lakefs-instance:
+#   secrets:
+#     # replace this with the connection string of the database you created in a previous step:
+#     databaseConnectionString: "postgresql://userservice-pguser:password@postgresql:5432/usersdb"
+#     # replace this with a randomly-generated string
+#     # authEncryptSecretKey: [ENCRYPTION_SECRET_KEY]
+#   lakefsConfig: |
+#     database:
+#       type: postgres
+#     blockstore:
+#       type: s3
+#       s3:
+#         force_path_style: true
+#         endpoint: http://minio.default.svc.cluster.local:9090
+#         discover_bucket_region: false
+
+# DEFAULT
 replicaCount: 1
 
 image:

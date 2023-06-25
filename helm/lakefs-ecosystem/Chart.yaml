@@ -21,3 +21,11 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     alias: lakefs-postgres
     condition: postgresql.enabled
+    labels:
+      run: my-nginx
+  - name: lakefs
+    repository: https://charts.lakefs.io
+    version: 0.9.13
+    labels:
+      run: my-nginx
+    alias: lakefs-instance
