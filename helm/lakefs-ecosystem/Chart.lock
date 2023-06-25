@@ -5,5 +5,5 @@ dependencies:
 - name: lakefs
   repository: https://charts.lakefs.io
   version: 0.9.13
-digest: sha256:95f314404a2e0b0d24dfb8b5c173f964b76fd17259a434bb95d396e1f6459333
-generated: "2023-06-24T16:45:01.264284-07:00"
+digest: sha256:e7053707c7bde9195511a17087a5c7b55cc3b71545aa566c11f429664034fdde
+generated: "2023-06-25T16:18:20.598297-07:00"
