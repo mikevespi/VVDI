@@ -1,0 +1,82 @@
+# volume for minio
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: minio-pv
+  labels:
+    type: local
+    app: lakefs-ecosystem
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+
+---
+# volume claim for minio
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+---
+# Deploys a new MinIO Pod into the metadata.namespace Kubernetes namespace
+#
+# The `spec.containers[0].args` contains the command run on the pod
+# The `/data` directory corresponds to the `spec.containers[0].volumeMounts[0].mountPath`
+# That mount path corresponds to a Kubernetes HostPath which binds `/data` to a local drive or volume on the worker node where the pod runs
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: minio
+  name: minio
+  namespace: default # Change this value to match the namespace metadata.name
+spec:
+  containers:
+    - name: minio
+      image: quay.io/minio/minio:latest
+      command:
+        - /bin/bash
+        - -c
+      args:
+        - minio server /data --console-address :9090
+      volumeMounts:
+        - mountPath: /data
+          name: localvolume # Corresponds to the `spec.volumes` Persistent Volume
+  volumes:
+    - name: localvolume
+      hostPath: # MinIO generally recommends using locally-attached volumes
+        path: minio-pv # Specify a path to a local drive or volume on the Kubernetes worker node
+        type: DirectoryOrCreate # The path to the last directory must exist
+---
+# Service for minio, exposes 9090 for the ui and 9000 for the api
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  labels:
+    app: lakefs-ecosystem
+spec:
+  ports:
+    - port: 9090
+      name: minio-webapp
+      targetPort: 9090
+      protocol: TCP
+    - port: 9000
+      name: minio-api
+      targetPort: 9000
+      protocol: TCP
+  selector:
+    app: minio
