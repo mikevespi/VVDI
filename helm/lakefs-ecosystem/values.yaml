@@ -1,3 +1,24 @@
+# lakefs
+lakefs-instance:
+  secrets:
+    #   # replace this with the connection string of the database you created in a previous step:
+    databaseConnectionString: "postgres://admin:test123@postgres:5432/postgresdb"
+    #   # replace this with a randomly-generated string
+    authEncryptSecretKey: "10a718b3f285d89c36e9864494cdd1507f3bc85b342df24736ea81f9a1134bcc"
+  lakefsConfig: |
+    database:
+      type: postgres
+    blockstore:
+      type: s3
+      s3:
+        force_path_style: true
+        endpoint: http://minio:9000
+        discover_bucket_region: false
+        credentials:
+          access_key_id: minioadmin
+          secret_access_key: minioadmin
+
+# DEFAULT
 replicaCount: 1
 
 image:

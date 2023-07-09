@@ -16,13 +16,6 @@ version: 0.1.0
 appVersion: "1.0"
 
 dependencies:
-  - name: postgresql
-    version: 12.5.8
-    repository: https://charts.bitnami.com/bitnami
-    alias: lakefs-postgres
-    condition: postgresql.enabled
-    labels:
-      run: my-nginx
   - name: lakefs
     repository: https://charts.lakefs.io
     version: 0.9.13

@@ -1,9 +1,6 @@
 dependencies:
-- name: postgresql
-  repository: https://charts.bitnami.com/bitnami
-  version: 12.5.8
 - name: lakefs
   repository: https://charts.lakefs.io
   version: 0.9.13
-digest: sha256:e7053707c7bde9195511a17087a5c7b55cc3b71545aa566c11f429664034fdde
-generated: "2023-06-25T16:18:20.598297-07:00"
+digest: sha256:47778f33d8281e9b09c2621847d99a299570f428cd9fc38e4a853d1aeaff7fda
+generated: "2023-07-09T15:13:34.62744-07:00"
